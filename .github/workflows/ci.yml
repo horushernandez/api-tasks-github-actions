@@ -33,6 +33,7 @@ jobs:
     deploy-dev:
       name: "Deploy Dev"
       runs-on: ubuntu-latest
+      needs: build
       
       steps:
         - name: Download artifact
