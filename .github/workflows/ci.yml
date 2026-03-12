@@ -6,7 +6,7 @@ permissions:
   id-token: write
   contents: read
 env:
-  DOTNET_VERSION: '10.0.102'
+  DOTNET_VERSION: '10.0.103'
   BUILD_CONFIGURATION: 'Release'
 jobs:
     build:
@@ -29,9 +29,9 @@ jobs:
           with:
             name: uv-artifact
             path: artifacts/
-    
+
     deploy-dev:
-      name: "Deploy to Azure"
+      name: "Deploy Dev"
       runs-on: ubuntu-latest
       
       steps:
@@ -40,3 +40,4 @@ jobs:
           with:
             name: uv-artifact
             path: artifacts/
+    
