@@ -29,3 +29,14 @@ jobs:
           with:
             name: uv-artifact
             path: artifacts/
+    
+    deploy-dev:
+      name: "Deploy to Azure"
+      runs-on: ubuntu-latest
+      
+      steps:
+        - name: Download artifact
+          uses: actions/download-artifact@v4
+          with:
+            name: uv-artifact
+            path: artifacts/
