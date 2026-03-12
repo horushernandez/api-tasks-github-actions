@@ -1,39 +1,31 @@
 name: Continuous Integration
-
-on: 
+on:
   push:
-    branches: [ "main" ]
-
+    branches: ["main"]
 permissions:
   id-token: write
   contents: read
-
 env:
-    DOTNET_VERSION: '10.0.102'
-    BUILD_CONFIGURATION: 'Release'
-
+  DOTNET_VERSION: '10.0.102'
+  BUILD_CONFIGURATION: 'Release'
 jobs:
     build:
-       name: CI
-       runs-on: ubuntu-latest
-
-       steps:
-          - name: Checkout Repository
-            uses: actions/checkout@v4
-
-          - name: Setup up .NET
-            uses: Actions/setup-dotnet@v4
-            with:
-                dotnet-version: ${{env.DOTNET_VERSION}}
-
-          - name: Test
-            run: dotnet test --configuration ${{env.BUILD_CONFIGURATION}}
-
-          - name: Dotnet Publish
-            run: dotnet publish src/TaskApi/TaskApi.csproj --configuration ${{env.BUILD_CONFIGURATION}} -o .artifacts
-
-          - name: Upload Artifacts
-            uses: actions/upload-artifact@v4
-            with:
-              name: uv-artifact
-              path: artifacts/
+      name: "CI"
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout Repository
+          uses: actions/checkout@v4
+        - name: Set up .NET 
+          uses: actions/setup-dotnet@v4
+          with:
+            dotnet-version: ${{env.DOTNET_VERSION}}        
+        
+        - name: Test
+          run: dotnet test --configuration ${{env.BUILD_CONFIGURATION}}
+        - name: Dotnet Publish
+          run: dotnet publish src/TaskApi/TaskApi.csproj --configuration ${{env.BUILD_CONFIGURATION}} -o artifacts
+        - name: Upload artifact
+          uses: actions/upload-artifact@v4
+          with:
+            name: uv-artifact
+            path: artifacts/
